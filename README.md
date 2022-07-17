@@ -1,0 +1,3 @@
+# landy-KeyBindings
+気持ちよく操作するためのキーバインドセット
+AutoHotKeyを用いて作成

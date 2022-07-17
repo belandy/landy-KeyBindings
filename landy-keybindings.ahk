@@ -2,13 +2,20 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
-; https://w.atwiki.jp/eamat/pages/17.html より拝借
+;-----------------------------------------------------------
+; Change Keyによって変更されているキー
+; 	半角/全角　= F13
+;	CapsLock  = F14
+;-----------------------------------------------------------
+
 
 ;-----------------------------------------------------------
 ; IMEの状態をセット
 ;   SetSts          1:ON / 0:OFF
 ;   WinTitle="A"    対象Window
 ;   戻り値          0:成功 / 0以外:失敗
+;
+; https://w.atwiki.jp/eamat/pages/17.html より拝借
 ;-----------------------------------------------------------
 IME_SET(SetSts, WinTitle="A")    {
 	ControlGet,hwnd,HWND,,,%WinTitle%
@@ -28,6 +35,10 @@ IME_SET(SetSts, WinTitle="A")    {
 }
 
 
+;-----------------------------------------------------------
+; 割り当て置換キーバインド
+; 対象のキーに別の機能を割り当てる
+;-----------------------------------------------------------
 ; 変換キーでIMEをONの状態にする
 vk1C::
 IME_SET(1)
@@ -37,3 +48,17 @@ Return
 vk1D::
 IME_SET(0)
 Return
+
+;-----------------------------------------------------------
+; アプリ起動キーバインド
+; 特定のアプリを起動する
+; F14に変換されているCapsLockキー(vk7d)を軸に設定
+;-----------------------------------------------------------
+; CapsLock + OでObsidian起動
+vk7d & O::
+	Process, Exist, Obsidian.exe
+	if ErrorLevel<>0
+		WinActivate, ahk_pid %ErrorLevel%
+	else
+		Run, "C:\Users\belan\AppData\Local\Obsidian\Obsidian.exe"
+return
