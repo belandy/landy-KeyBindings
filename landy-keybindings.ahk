@@ -40,14 +40,10 @@ IME_SET(SetSts, WinTitle="A")    {
 ; 対象のキーに別の機能を割り当てる
 ;-----------------------------------------------------------
 ; 変換キーでIMEをONの状態にする
-vk1C::
-IME_SET(1)
-Return
+vk1C::IME_SET(1)
 
 ; 無変換キーでIMEをOFFの状態にする
-vk1D::
-IME_SET(0)
-Return
+vk1D::IME_SET(0)
 
 ;-----------------------------------------------------------
 ; アプリ起動キーバインド
@@ -62,3 +58,19 @@ vk7d & O::
 	else
 		Run, "C:\Users\belan\AppData\Local\Obsidian\Obsidian.exe"
 return
+
+; CapsLock + VでVivaldi起動
+vk7d & V::
+	Process, Exist, Vivaldi.exe
+	if ErrorLevel<>0
+		WinActivate, ahk_pid %ErrorLevel%
+	else
+		Run, "C:\Users\belan\AppData\Local\Vivaldi\Application\vivaldi.exe"
+return
+
+
+
+
+; シャットダウン
+; shutdown.ahkを使用
+#Del::Run, shutdown.ahk
